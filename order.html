@@ -21,13 +21,36 @@
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#menu">Menu</a></li>
                     <li class="nav-item"><a class="nav-link active" href="order.html">Order</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" data-toggle="modal"
+                            data-target="#exampleModal">Sign In</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Account Sign In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group"><input type="email" placeholder="Email"></div>
+                    <div class="form-group"><input type="password" placeholder="Password"></div>
+                    <a href="auth.html">Don't have an account? Register here!</a>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <section style="margin-top: 60px;">
         <h4>Menu</h4>
-        <div class="container">
+        <div class="container mt-3">
             <h5>Size</h5>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio1" value="option1">
@@ -48,7 +71,7 @@
                 </label>
             </div>
         </div>
-        <div class="container">
+        <div class="container mt-3">
             <h5>Base</h5>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="baseRadios" id="baseRadio1" value="option1">
@@ -69,7 +92,7 @@
                 </label>
             </div>
         </div>
-        <div class="container">
+        <div class="container mt-3">
             <h5>Protein</h5>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="proteinRadios" id="proteinRadio1" value="option1">
@@ -96,80 +119,80 @@
                 </label>
             </div>
         </div>
-        <div class="container">
+        <div class="container mt-3">
             <h5>Toppings</h5>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="toppRadios" id="toppRadio1" value="option1">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppRadio1" value="option1">
                 <label class="form-check-label" for="toppRadio1">
                     Kimchi
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="toppRadios" id="toppRadio2" value="option2">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppRadio2" value="option2">
                 <label class="form-check-label" for="toppRadio2">
                     Cucumber
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="toppRadios" id="toppRadio3" value="option3">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppRadio3" value="option3">
                 <label class="form-check-label" for="toppRadio3">
                     Kale
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="toppRadios" id="toppRadio4" value="option4">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppRadio4" value="option4">
                 <label class="form-check-label" for="toppRadio4">
                     Green onion
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="toppRadios" id="toppRadio5" value="option5">
-                <label class="form-check-label" for="toppRadio5">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB5" value="option5">
+                <label class="form-check-label" for="toppCB5">
                     Daikon
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="toppRadios" id="toppRadio6" value="option6">
-                <label class="form-check-label" for="toppRadio6">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB6" value="option6">
+                <label class="form-check-label" for="toppCB6">
                     Edamame
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="toppRadios" id="toppRadio7" value="option7">
-                <label class="form-check-label" for="toppRadio7">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB7" value="option7">
+                <label class="form-check-label" fCB="toppCB7">
                     Seaweed salad
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="toppRadios" id="toppRadio8" value="option8">
-                <label class="form-check-label" for="toppRadio8">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB8" value="option8">
+                <label class="form-check-label" for="toppCB8">
                     Ginger
                 </label>
             </div>
         </div>
-        <div class="container">
+        <div class="container mt-3">
             <h5>Specialty Toppings</h5>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="specRadios" id="specRadio1" value="option1">
-                <label class="form-check-label" for="specRadio1">
+                <input class="form-check-input" type="checkbox" name="specCBS" id="specCB1" value="option1">
+                <label class="form-check-label" for="specCB1">
                     Masago
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="specRadios" id="specRadio2" value="option2">
-                <label class="form-check-label" for="specRadio2">
+                <input class="form-check-input" type="checkbox" name="specCBS" id="specCB2" value="option2">
+                <label class="form-check-label" for="specCB2">
                     Imitation crab
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="specRadios" id="specRadio3" value="option3">
-                <label class="form-check-label" for="specRadio3">
+                <input class="form-check-input" type="checkbox" name="specCBS" id="specCB3" value="option3">
+                <label class="form-check-label" for="specCB3">
                     Avocado
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="specRadios" id="specRadio4" value="option4">
-                <label class="form-check-label" for="specRadio4">
+                <input class="form-check-input" type="checkbox" name="specCBS" id="specCB4" value="option4">
+                <label class="form-check-label" for="specCB4">
                     Sesame seeds
                 </label>
             </div>
