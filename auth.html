@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/Navigation-Clean.css">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/auth.js"></script>
 </head>
 
 <body style="margin-right: 0px;">
@@ -27,13 +28,72 @@
             </div>
         </div>
     </nav>
-    <div class="container text-center" style="margin-top: 100px;">
-        <h5>Account Registration</h5>
-        <div class="form-group"><input type="email" placeholder="Email"></div>
-        <div class="form-group"><input type="password" placeholder="Password"></div>
-        <div class="form-group"><input type="password" placeholder="Confirm password"></div>
-        <button class="btn btn-primary" type="button">Register</button>
+    <div class="container text-center col-3" style="margin-top: 100px;">
+        <form class="needs-validation" novalidate
+            oninput='pw2.setCustomValidity(pw2.value != pw1.value ? "Passwords do not match." : "")'>
+            <h5 class="mb-3">Account Registration</h5>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="pw1" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="pw2" placeholder="Confirm password" required>
+            </div>
+            <button class="btn btn-primary" type="submit" onclick="verify()">Register</button>
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal"><small id="loginblock"
+                    class="form-text">Already have an account? Sign in here!</small></a>
+        </form>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Account Sign In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>460</title>
+    <script src="js/cart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/Navigation-Clean.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -36,20 +37,27 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group"><input type="email" placeholder="Email"></div>
-                    <div class="form-group"><input type="password" placeholder="Password"></div>
-                    <a href="auth.html">Don't have an account? Register here!</a>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button">Login</button>
-                </div>
+                <form class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <a href="auth.html">Don't have an account? Register here!</a>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <section style="margin-top: 60px;">
-        <h4>Menu</h4>
+        <hr>
         <div class="container mt-3">
+            <h4>Our menu</h4>
             <h5>Size</h5>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio1" value="option1">
@@ -195,6 +203,13 @@
                     Sesame seeds
                 </label>
             </div>
+            <input class="btn btn-primary mt-3" type="button" value="Add to cart" onclick="addCart()">
+        </div>
+    </section>
+    <section>
+        <div class="container mt-3" id="shoppingCart">
+            <h4>Shopping Cart</h4>
+            <input class="btn btn-primary" type="button" value="Reset">
         </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
