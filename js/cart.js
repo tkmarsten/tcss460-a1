@@ -20,6 +20,7 @@ function addCart() {
         var cardBttn = document.createElement("button");
         cardBttn.className = "close";
         cardBttn.type = "button";
+        cardBttn.onclick = "removeOrder()";
         var bttnSpan = document.createElement("span");
         bttnSpan.innerHTML = "&times;"
         cardBody.appendChild(cardBttn);
@@ -81,8 +82,11 @@ function addCart() {
 }
 
 function resetCart() {
-    cards = document.getElementById("cartOrders")
+    var cards = document.getElementById("cartOrders")
     while (cards.firstChild) {
         cards.removeChild(cards.firstChild);
     }
+}
+function removeOrder() {
+
 }

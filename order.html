@@ -12,8 +12,9 @@
 </head>
 
 <body>
+    <!-- Navigation -->
     <nav class="navbar navbar-light navbar-expand-md fixed-top navigation-clean">
-        <div class="container"><a class="navbar-brand" href="#">Poke</a><button data-toggle="collapse"
+        <div class="container"><a class="navbar-brand" href="index.html">Poke</a><button data-toggle="collapse"
                 class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
@@ -29,6 +30,7 @@
         </div>
     </nav>
 
+    <!-- Sign in modal that pops up -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -61,6 +63,7 @@
         <div class="container mt-3">
             <h4>Our menu</h4>
             <h5>Size</h5>
+            <!-- Size form group -->
             <div class="form-group">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio1" value="Small"
@@ -86,6 +89,7 @@
             </div>
         </div>
 
+        <!-- Base form group -->
         <div class="container mt-3">
             <h5>Base</h5>
             <div class="form-check">
@@ -110,6 +114,7 @@
             </div>
         </div>
 
+        <!-- Protein form group -->
         <div class="container mt-3">
             <h5>Protein</h5>
             <div class="form-check">
@@ -140,6 +145,7 @@
             </div>
         </div>
 
+        <!-- Toppings form group -->
         <div class="container mt-3">
             <h5>Toppings</h5>
             <div class="form-check">
@@ -192,6 +198,7 @@
             </div>
         </div>
 
+        <!-- Speciality toppings form group -->
         <div class="container mt-3">
             <h5>Specialty Toppings</h5>
             <div class="form-check">
@@ -222,11 +229,25 @@
         </div>
     </section>
 
+    <!-- Shopping cart section -->
     <section>
         <div class="container mt-3" id="shoppingCart">
             <h4>Shopping Cart</h4>
             <input class="btn btn-primary" type="button" value="Reset" onclick="resetCart()">
-            <div class="row" id="cartOrders">
+            <div class="row mt-3" id="cartOrders">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5>Favorite Order!</h5>
+                        <li class="card-text">Large</li>
+                        <li class="card-text">White rice</li>
+                        <li class="card-text">Tuna</li>
+                        <li class="card-text">Kimchi</li>
+                        <li class="card-text">Green onion</li>
+                        <li class="card-text">Seaweed salad</li>
+                        <li class="card-text">Imitation crab</li>
+                        <li class="card-text">Sesame seeds</li>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
