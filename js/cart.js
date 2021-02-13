@@ -17,6 +17,14 @@ function addCart() {
         cardTitle.innerHTML = "Order";
         cardBody.appendChild(cardTitle);
 
+        var cardBttn = document.createElement("button");
+        cardBttn.className = "close";
+        cardBttn.type = "button";
+        var bttnSpan = document.createElement("span");
+        bttnSpan.innerHTML = "&times;"
+        cardBody.appendChild(cardBttn);
+        cardBttn.appendChild(bttnSpan);
+
         var radioOptions = [size, base, protein];
         for (const val in radioOptions) {
             var cardText = document.createElement("li");
@@ -35,7 +43,7 @@ function addCart() {
             }
         }
 
-        var cart = document.getElementById("shoppingCart");
+        var cart = document.getElementById("cartOrders");
         cart.appendChild(newCard);
 
         sizeLabel = document.getElementsByName("sizeRadioLabel");
@@ -70,4 +78,11 @@ function addCart() {
         }
     }
 
+}
+
+function resetCart() {
+    cards = document.getElementById("cartOrders")
+    while (cards.firstChild) {
+        cards.removeChild(cards.firstChild);
+    }
 }
