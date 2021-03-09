@@ -1,0 +1,22 @@
+{
+  "name": "a1",
+  "description": "Author: tiarnanm <br>\r Website: https://tkmarsten.github.io/tcss460-a1/ <br>\r Repo: https://github.com/tkmarsten/tcss460-a1 <br>\r <br>\r Completed: <br>\r Home page\r - Carousel\r - Menu\r - Description\r - Menu",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkmarsten/tcss460-a1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tkmarsten/tcss460-a1/issues"
+  },
+  "homepage": "https://github.com/tkmarsten/tcss460-a1#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
