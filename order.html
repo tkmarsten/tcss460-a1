@@ -67,21 +67,21 @@
             <div class="form-group">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio1" value="Small"
-                        required>
+                        required onchange="updateCart()">
                     <label class="form-check-label" for="sizeRadio1" name="sizeRadioLabel">
                         Small
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio2" value="Medium"
-                        required>
+                        required onchange="updateCart()">
                     <label class="form-check-label" for="sizeRadio2" name="sizeRadioLabel">
                         Medium
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio3" value="Large"
-                        required>
+                        required onchange="updateCart()">
                     <label class="form-check-label" for="sizeRadio3" name="sizeRadioLabel">
                         Large
                     </label>
@@ -149,49 +149,57 @@
         <div class="container mt-3">
             <h5>Toppings</h5>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB1" value="Kimchi">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB1" value="Kimchi"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="toppCB1">
                     Kimchi
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB2" value="Cucumber">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB2" value="Cucumber"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="toppCB2">
                     Cucumber
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB3" value="Kale">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB3" value="Kale"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="toppCB3">
                     Kale
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB4" value="Green onion">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB4" value="Green onion"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="toppCB4">
                     Green onion
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB5" value="Daikon">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB5" value="Daikon"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="toppCB5">
                     Daikon
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB6" value="Edamame">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB6" value="Edamame"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="toppCB6">
                     Edamame
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB7" value="Seaweed salad">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB7" value="Seaweed salad"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="toppCB7">
                     Seaweed salad
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB8" value="Ginger">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="toppCB8" value="Ginger"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="toppCB8">
                     Ginger
                 </label>
@@ -202,29 +210,37 @@
         <div class="container mt-3">
             <h5>Specialty Toppings</h5>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="specCB1" value="Masago">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="specCB1" value="Masago"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="specCB1">
                     Masago
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="specCB2" value="Imitation crab">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="specCB2" value="Imitation crab"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="specCB2">
                     Imitation crab
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="specCB3" value="Avocado">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="specCB3" value="Avocado"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="specCB3">
                     Avocado
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="toppCBS" id="specCB4" value="Sesame seeds">
+                <input class="form-check-input" type="checkbox" name="toppCBS" id="specCB4" value="Sesame seeds"
+                    onchange="updateCart()">
                 <label class="form-check-label" for="specCB4">
                     Sesame seeds
                 </label>
             </div>
+        </div>
+        <div class="container mt-3">
+            <input type="text" class="form-control" id="orderName" placeholder="Name your order">
+            <p id="totalPrice">$0</p>
             <input class="btn btn-primary mt-3" type="submit" value="Add to cart" onclick="addCart()">
         </div>
     </section>
@@ -234,9 +250,11 @@
         <div class="container mt-3" id="shoppingCart">
             <h4>Shopping Cart</h4>
             <input class="btn btn-primary" type="button" value="Reset" onclick="resetCart()">
+            <input class="btn btn-primary" type="button" value="Remove selected" onclick="removeOrders()">
             <div class="row mt-3" id="cartOrders">
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
+                        <input type="checkbox" name="deleteOrder" value="delete">
                         <h5>Favorite Order!</h5>
                         <li class="card-text">Large</li>
                         <li class="card-text">White rice</li>
@@ -246,6 +264,7 @@
                         <li class="card-text">Seaweed salad</li>
                         <li class="card-text">Imitation crab</li>
                         <li class="card-text">Sesame seeds</li>
+                        <p>Total: $15.45</p>
                     </div>
                 </div>
             </div>
