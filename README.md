@@ -1,6 +1,6 @@
 # Poke Ordering Site
 Author: tiarnanm <br>
-Website: https://tkmarsten.github.io/tcss460-a1/ <br>
+Website: https://tkmarsten.github.io/tiarnanm-tcss460-a2/ <br>
 Repo: https://github.com/tkmarsten/tiarnanm-tcss460-a2 <br>
 <br>
 Completed: <br>
