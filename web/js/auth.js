@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    $("#bttn").click(sign_in)
+})
+
 function verify() {
 
     var valid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
@@ -12,7 +16,9 @@ function verify() {
     }
 }
 
-async function sign_in() {
+async function sign_in(event) {
+
+    event.preventDefault();
 
     let encoded = window.btoa($("#uname").val() + ':' + $("#pwd").val())
 
@@ -32,7 +38,7 @@ async function sign_in() {
         console.log(json)
 
         if (json.success) {
-            let b = $("<button>").text("Orders via Cookie")
+            /*let b = $("<button>").text("Orders via Cookie")
             b.click(() => getOrdersFromCookie())
             let a = $("<a>").text("Order Link via Cookie")
             a.attr("href", "/cookie_orders")
@@ -41,7 +47,9 @@ async function sign_in() {
             b2.click(() => getOrdersFromHeader(json.token))
 
             let del = $("<button>").text("Logout")
-            del.click(() => deleteCookie())
+            del.click(() => deleteCookie())*/
+
+            $("#exampleModal").modal('toggle')
 
             console.log(document.cookie)
         }
