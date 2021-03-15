@@ -15,16 +15,16 @@ Order page
 - Shopping cart
 - Displays current orders
 - Cart reset
-- Favorite order
+- Default favorite order
+- Price tally
+- Remove multiple or individual orders
+- Name orders
 
 Sign in
 - Client side validation for matching passwords / blank fields
+- Password regex
 
 Incomplete: <br>
-- Price tally
-- Remove multiple or individual orders
 - Favorite orders
-- Name orders
 - Abbreviated order
 - Checkout
-- Password regex
