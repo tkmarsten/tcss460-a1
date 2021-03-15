@@ -1,5 +1,5 @@
 // Create and add the order to the shopping cart
-function addCart() {
+async function addCart() {
     size = $('input[name=sizeRadios]:checked').val();
     base = $('input[name=baseRadios]:checked').val();
     protein = $('input[name=protRadios]:checked').val();
