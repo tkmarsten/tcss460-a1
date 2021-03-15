@@ -2,13 +2,19 @@ $(document).ready(function () {
     $("#bttn").click(sign_in)
 })
 
-function verify() {
+$(document).ready(function () {
+    $("#verifybttn").click(verify)
+})
+
+async function verify(event) {
+
+    event.preventDefault()
 
     var valid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     var pw = document.getElementById("pw1");
 
     if (pw.value.match(valid)) {
-        alert('Success')
+        await register()
         return true;
     } else {
         alert('Password does not contain a lowercase letter, an uppercase letter, or a numeric digit.')
@@ -51,6 +57,34 @@ async function sign_in(event) {
 
             $("#exampleModal").modal('toggle')
 
+            console.log(document.cookie)
+        }
+    } else {
+        alert("HTTP-Error: " + response.status)
+        console.log(response.status)
+        let json = await response.json()
+        console.log(json)
+    }
+}
+
+async function register() {
+    let email = $("#email").val()
+    let password = $("#pw1").val()
+
+    let response = await fetch("/auth", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 'Accept': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    })
+
+    if (response.ok) {
+        let json = await response.json()
+        console.log(json)
+
+        if (json.success) {
+            alert('Success')
             console.log(document.cookie)
         }
     } else {
