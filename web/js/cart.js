@@ -5,15 +5,18 @@ async function addCart() {
     protein = $('input[name=protRadios]:checked').val();
 
     if (size && base && protein) {
+
         // Create card div
         var newCard = document.createElement("div");
         newCard.className = "card";
         newCard.style.width = "18rem";
 
+
         // Create card body div
         var cardBody = document.createElement("div");
         cardBody.className = "card-body";
         newCard.appendChild(cardBody);
+
 
         // Create the checkbox for order selection
         var cardBttn = document.createElement("input");
@@ -22,12 +25,14 @@ async function addCart() {
         cardBttn.value = "delete";
         cardBody.appendChild(cardBttn);
 
+
         // Create card title within the body
         var cardTitle = document.createElement("h5");
         cardTitle.className = "card-title";
         var orderName = document.getElementById("orderName").value;
         cardTitle.innerHTML = `Order ${orderName}`;
         cardBody.appendChild(cardTitle);
+
 
         // Append the size, base, and protein options in the card
         var radioOptions = [size, base, protein];
@@ -37,6 +42,7 @@ async function addCart() {
             cardText.innerHTML = radioOptions[val];
             cardBody.appendChild(cardText);
         }
+
 
         // Append the topping options in the card
         var items = document.getElementsByName('toppCBS');
@@ -49,6 +55,8 @@ async function addCart() {
             }
         }
 
+
+        // Take the running total price and append to the card
         var totalPrice = document.getElementById("totalPrice");
         var orderPrice = document.createElement("p");
         orderPrice.innerHTML = "Total: " + totalPrice.innerHTML;
@@ -58,6 +66,7 @@ async function addCart() {
         // Add the newly created order card to the cart
         var cart = document.getElementById("cartOrders");
         cart.appendChild(newCard);
+
 
         // Reset the color of the required options back to black after order has
         // been successfully added
@@ -76,15 +85,17 @@ async function addCart() {
             pl.style.color = "black";
         }
 
+
         // Reset buttons after successful order addition
         $('input[name=sizeRadios]').prop('checked', false);
         $('input[name=baseRadios]').prop('checked', false);
         $('input[name=protRadios]').prop('checked', false);
         $('input[name=toppCBS]').prop('checked', false);
-
     } else {
+
         // Set the required radio buttons to red for the user
         alert("You did not selected a required item.");
+
         sizeLabel = document.getElementsByName("sizeRadioLabel");
         for (const sl of sizeLabel) {
             sl.style.color = "red";
@@ -105,6 +116,7 @@ async function addCart() {
 
 // Resets the cart by deleting every order
 function resetCart() {
+
     var cards = document.getElementById("cartOrders");
     while (cards.firstChild) {
         cards.removeChild(cards.firstChild);
@@ -113,6 +125,7 @@ function resetCart() {
 
 // Remove the orders that have been checked
 function removeOrders() {
+
     var cb = document.getElementsByName("deleteOrder");
     for (var i = 0; i < cb.length; i++) {
         if (cb[i].type == 'checkbox' && cb[i].checked == true) {
@@ -124,6 +137,7 @@ function removeOrders() {
 
 // Update the cart price total
 function updateCart() {
+
     var total = 0;
 
     if (document.getElementById("sizeRadio1").checked) {
