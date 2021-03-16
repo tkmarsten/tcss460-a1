@@ -27,18 +27,13 @@ const router = express.Router()
  * 
  * @apiParamExample {json} Request-Body-Example:
  *  {
- *      "first":"Charles",
- *      "last":"Bryan",
  *      "email":"cfb3@fake.email",
  *      "password":"test12345"
  *  }
  * 
- * @apiSuccess (Success 201) {boolean} success true when the name is inserted
  * @apiSuccess (Success 201) {String} email the email of the user inserted 
  * 
  * @apiError (400: Missing Parameters) {String} message "Missing required information"
- * 
- * @apiError (400: Username exists) {String} message "Username exists"
  * 
  * @apiError (400: Email exists) {String} message "Email exists"
  * 
