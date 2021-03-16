@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/orders.js"></script>
 </head>
 
 <body>
@@ -24,6 +25,7 @@
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#menu">Menu</a></li>
                     <li class="nav-item"><a class="nav-link active" href="order.html">Order</a></li>
+                    <li class="nav-item"><a class="nav-link" href="previous.html">Previous Orders</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" data-toggle="modal"
                             data-target="#exampleModal">Sign In</a>
                     </li>
@@ -45,10 +47,10 @@
                 <form class="needs-validation" novalidate>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                            <input type="email" class="form-control" placeholder="Email" id="uname" required>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" required>
+                            <input type="password" class="form-control" placeholder="Password" id="pwd" required>
                         </div>
                         <a href="auth.html">Don't have an account? Register here!</a>
                     </div>
@@ -68,21 +70,21 @@
             <!-- Size form group -->
             <div class="form-group">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio1" value="Small"
+                    <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio1" value="small"
                         required onchange="updateCart()">
                     <label class="form-check-label" for="sizeRadio1" name="sizeRadioLabel">
                         Small
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio2" value="Medium"
+                    <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio2" value="medium"
                         required onchange="updateCart()">
                     <label class="form-check-label" for="sizeRadio2" name="sizeRadioLabel">
                         Medium
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio3" value="Large"
+                    <input class="form-check-input" type="radio" name="sizeRadios" id="sizeRadio3" value="large"
                         required onchange="updateCart()">
                     <label class="form-check-label" for="sizeRadio3" name="sizeRadioLabel">
                         Large
@@ -95,21 +97,21 @@
         <div class="container mt-3">
             <h5>Base</h5>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="baseRadios" id="baseRadio1" value="White rice"
+                <input class="form-check-input" type="radio" name="baseRadios" id="baseRadio1" value="white rice"
                     required>
                 <label class="form-check-label" for="baseRadio1" name="baseRadioLabel">
                     White rice
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="baseRadios" id="baseRadio2" value="Brown rice"
+                <input class="form-check-input" type="radio" name="baseRadios" id="baseRadio2" value="brown rice"
                     required>
                 <label class="form-check-label" for="baseRadio2" name="baseRadioLabel">
                     Brown rice
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="baseRadios" id="baseRadio3" value="Noodles" required>
+                <input class="form-check-input" type="radio" name="baseRadios" id="baseRadio3" value="noodles" required>
                 <label class="form-check-label" for="baseRadio3" name="baseRadioLabel">
                     Noodles
                 </label>
@@ -120,27 +122,27 @@
         <div class="container mt-3">
             <h5>Protein</h5>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="protRadios" id="proteinRadio1" value="Tuna" required>
+                <input class="form-check-input" type="radio" name="protRadios" id="proteinRadio1" value="tuna" required>
                 <label class="form-check-label" for="proteinRadio1" name="protRadioLabel">
                     Tuna
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="protRadios" id="proteinRadio2" value="Salmon"
+                <input class="form-check-input" type="radio" name="protRadios" id="proteinRadio2" value="salmon"
                     required>
                 <label class="form-check-label" for="proteinRadio2" name="protRadioLabel">
                     Salmon
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="protRadios" id="proteinRadio3" value="Octopus"
+                <input class="form-check-input" type="radio" name="protRadios" id="proteinRadio3" value="octopus"
                     required>
                 <label class="form-check-label" for="proteinRadio3" name="protRadioLabel">
                     Octopus
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="protRadios" id="proteinRadio4" value="Tofu" required>
+                <input class="form-check-input" type="radio" name="protRadios" id="proteinRadio4" value="tofu" required>
                 <label class="form-check-label" for="proteinRadio4" name="protRadioLabel">
                     Tofu
                 </label>
@@ -243,7 +245,7 @@
         <div class="container mt-3">
             <input type="text" class="form-control" id="orderName" placeholder="Name your order">
             <p id="totalPrice">$0</p>
-            <input class="btn btn-primary mt-3" type="submit" value="Add to cart" onclick="addCart()">
+            <input class="btn btn-primary mt-3" type="submit" value="Add to cart" id="placeOrder">
         </div>
     </section>
 
@@ -251,6 +253,8 @@
     <section>
         <div class="container mt-3" id="shoppingCart">
             <h4>Shopping Cart</h4>
+            <h5>Total</h5>
+            <p id="cartTotal">$15.45</p>
             <input class="btn btn-primary" type="button" value="Reset" onclick="resetCart()">
             <input class="btn btn-primary" type="button" value="Remove selected" onclick="removeOrders()">
             <div class="row mt-3" id="cartOrders">

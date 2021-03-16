@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -8,51 +8,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/Navigation-Clean.css">
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/previous.js"></script>
 </head>
 
-<body style="margin-right: 0px;">
+<body>
     <nav class="navbar navbar-light navbar-expand-md fixed-top navigation-clean">
-        <div class="container"><a class="navbar-brand" href="index.html">Poke Dudes</a><button data-toggle="collapse"
+        <div class="container"><a class="navbar-brand" href="#">Poke Dudes</a><button data-toggle="collapse"
                 class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
                     <li class="nav-item"><a class="nav-link" href="order.html">Order</a></li>
                     <li class="nav-item"><a class="nav-link" href="previous.html">Previous Orders</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#" data-toggle="modal"
+                    <li class="nav-item"><a class="nav-link" href="#" data-toggle="modal"
                             data-target="#exampleModal">Sign In</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container text-center col-3" style="margin-top: 100px;">
-        <form class="needs-validation" novalidate
-            oninput='pw2.setCustomValidity(pw2.value != pw1.value ? "Passwords do not match." : "")'>
-            <h5 class="mb-3">Account Registration</h5>
-            <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" id="email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="pw1" id="pw1" placeholder="Password" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="pw2" id="pw2" placeholder="Confirm password" required>
-                <small id="passwordHelpBlock" class="form-text text-muted">
-                    Password must have at least one lowercase letter, one uppercase letter, one numeric digit, and be
-                    6-20 characters in length.
-                </small>
-            </div>
-            <button class="btn btn-primary" type="submit" id="verifybttn">Register</button>
-            <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal"><small id="loginblock"
-                    class="form-text">Already have an account? Sign in here!</small></a>
-        </form>
-    </div>
 
+    <!-- Sign in modal that pops up -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -65,11 +45,12 @@
                 <form class="needs-validation" novalidate>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                            <input type="email" class="form-control" placeholder="Email" id="uname" required>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" required>
+                            <input type="password" class="form-control" placeholder="Password" id="pwd" required>
                         </div>
+                        <a href="auth.html">Don't have an account? Register here!</a>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit" id="bttn">Login</button>
@@ -78,6 +59,7 @@
             </div>
         </div>
     </div>
+    <div id="container" style="margin-top: 100px"></div>
 
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -99,7 +81,6 @@
             }, false);
         })();
     </script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
 </body>

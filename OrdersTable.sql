@@ -1,7 +1,10 @@
+DROP TYPE SIZE CASCADE;
 CREATE TYPE SIZE AS ENUM ('small', 'medium', 'large');
 
-CREATE TYPE BASE AS ENUM ('white', 'brown', 'noodles');
+DROP TYPE BASE CASCADE;
+CREATE TYPE BASE AS ENUM ('white rice', 'brown rice', 'noodles');
 
+DROP TYPE PROTEIN CASCADE;
 CREATE TYPE PROTEIN AS ENUM ('tuna', 'salmon', 'octopus', 'tofu');
 
 DROP TABLE IF EXISTS Orders CASCADE;
@@ -34,3 +37,26 @@ INSERT INTO
     Members(Email, Password, Salt)
 VALUES
     ('test1@test.com', 'aafc93bbad0671a0531fa95168c4691be3a0d5e033c33a7b8be9941d2702e566', '5a3d1d9d0bda1e4855576fe486c3a188e14a3f1a381ea938cacdb8c799a3205f');
+
+INSERT INTO 
+    Orders(MemberID, My_Size, My_Base, My_Protein, Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10, Option11, Option12)
+SELECT 
+    Members.MemberId,
+    'small', 
+    'white rice',
+    'tuna',
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+FROM Members
+WHERE Members.Email='test1@test.com'
+RETURNING *;

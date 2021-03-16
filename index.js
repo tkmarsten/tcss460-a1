@@ -36,6 +36,7 @@ app.use(middleware.jsonError)
  */
 app.use('/auth', require('./routes/signin.js'))
 app.use('/auth', require('./routes/register.js'))
+app.use('/orders', middleware.checkTokenCookies, require('./routes/order.js'))
 
 /*
  * When clients connect to the base URL, hosts html and other static files found 
