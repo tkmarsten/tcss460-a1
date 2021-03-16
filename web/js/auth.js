@@ -6,6 +6,7 @@ $(document).ready(function () {
     $("#verifybttn").click(verify)
 })
 
+// Verifies that the password matches the regex. Calls the register endpoint if it's a valid password.
 async function verify(event) {
 
     event.preventDefault()
@@ -17,11 +18,12 @@ async function verify(event) {
         await register()
         return true;
     } else {
-        alert('Password does not contain a lowercase letter, an uppercase letter, or a numeric digit.')
+        alert('Password does not contain a lowercase letter, an uppercase letter, a numeric digit, or is not 6-20 characters in length.')
         return false;
     }
 }
 
+// Signs the user in by callign the GET endpoint in /auth
 async function sign_in(event) {
 
     event.preventDefault();
@@ -44,19 +46,7 @@ async function sign_in(event) {
         console.log(json)
 
         if (json.success) {
-            /*let b = $("<button>").text("Orders via Cookie")
-            b.click(() => getOrdersFromCookie())
-            let a = $("<a>").text("Order Link via Cookie")
-            a.attr("href", "/cookie_orders")
-
-            let b2 = $("<button>").text("Orders via Header")
-            b2.click(() => getOrdersFromHeader(json.token))
-
-            let del = $("<button>").text("Logout")
-            del.click(() => deleteCookie())*/
-
             $("#exampleModal").modal('toggle')
-
             console.log(document.cookie)
         }
     } else {
@@ -67,6 +57,7 @@ async function sign_in(event) {
     }
 }
 
+// Registers the user and stores them in the Members SQL table
 async function register() {
     let email = $("#email").val()
     let password = $("#pw1").val()
@@ -87,64 +78,6 @@ async function register() {
             alert('Success')
             console.log(document.cookie)
         }
-    } else {
-        alert("HTTP-Error: " + response.status)
-        console.log(response.status)
-        let json = await response.json()
-        console.log(json)
-    }
-}
-
-async function getOrdersFromHeader(jwt) {
-
-    console.log(jwt)
-    let response = await fetch("/orders", {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + jwt
-        }
-    })
-
-    if (response.ok) { // if HTTP-status is 200-299
-        // get the response body (the method explained below)
-        let json = await response.json()
-        console.log(json)
-    } else {
-        alert("HTTP-Error: " + response.status)
-        console.log(response.status)
-        let json = await response.json()
-        console.log(json)
-    }
-}
-
-async function deleteCookie() {
-
-    let response = await fetch("/cookie_orders/cookie", {
-        method: 'DELETE'
-    })
-
-    if (response.ok) { // if HTTP-status is 200-299
-        // get the response body (the method explained below)
-        let json = await response.json()
-        console.log(json)
-    } else {
-        alert("HTTP-Error: " + response.status)
-        console.log(response.status)
-        let json = await response.json()
-        console.log(json)
-    }
-}
-
-async function getOrdersFromCookie() {
-
-    let response = await fetch("/cookie_orders", {
-        method: 'GET'
-    })
-
-    if (response.ok) { // if HTTP-status is 200-299
-        // get the response body (the method explained below)
-        let json = await response.json()
-        console.log(json)
     } else {
         alert("HTTP-Error: " + response.status)
         console.log(response.status)

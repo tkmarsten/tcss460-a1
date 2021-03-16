@@ -1,3 +1,4 @@
+// Load all previous orders upon loading the webpage
 $(document).ready(function () {
     const response = fetch("/orders", {
         method: "GET"
@@ -26,10 +27,3 @@ $(document).ready(function () {
                 }
             }))
 })
-
-async function logOut() {
-    let response = fetch("/auth", {
-        method: 'DELETE'
-    })
-        .then(window.location.href = "signin.html")
-}

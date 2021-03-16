@@ -1,9 +1,8 @@
 $(document).ready(function () {
     $("#placeOrder").click(placeOrder)
-    //$("#viewOrder").click(() => window.location.href = "orders.html")
-    //$("#logout").click(logOut)
 })
 
+// Places the order into the Orders SQL table and then adds order to the shopping cart
 async function placeOrder() {
     const order = {
         size: $('input[name=sizeRadios]:checked').val(),
@@ -35,15 +34,6 @@ async function placeOrder() {
 
     console.log(order)
     console.log(json)
-    //alert(json.message)
 
     addCart()
-}
-
-
-async function logOut() {
-    let response = fetch("/auth", {
-        method: 'DELETE'
-    })
-        .then(window.location.href = "signin.html")
 }
