@@ -1,0 +1,1646 @@
+{
+	"info": {
+		"_postman_id": "a56e5887-3c73-4541-b794-fb1646928789",
+		"name": "A2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication - Correct Flow",
+			"item": [
+				{
+					"name": "Register New User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"name\", \"fake@fake.email\")",
+									"pm.collectionVariables.set(\"password\", \"fake\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"",
+									"pm.test(\"Body to have success\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"success\")",
+									"    pm.expect(response.success).to.equal(true) ",
+									"})",
+									"",
+									"pm.test(\"Body to have email\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"email\")",
+									"    pm.expect(response.email).to.equal(pm.collectionVariables.replaceIn(\"{{name}}\"))",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first\":\"test\",\n    \"last\":\"abc\",\n    \"email\":\"{{name}}\",\n    \"password\":\"{{password}}\",\n    \"username\":\"fake\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign-in New User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Body to have success\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"success\")",
+									"    pm.expect(response.success).to.equal(true) ",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Authentication successful!\")",
+									"})",
+									"",
+									"pm.test(\"Body to have token\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"token\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{name}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication - Incorrect Flow",
+			"item": [
+				{
+					"name": "Auth 400 Missing parameters",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"name\", \"testabc@fake.email\")",
+									"pm.collectionVariables.set(\"password\", \"test12345\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is ERROR\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Missing required information\") ",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\":\"{{password}}\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth 400 Email exists",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"name\", \"testabc@fake.email\")",
+									"pm.collectionVariables.set(\"password\", \"test12345\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is ERROR\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Email exists\") ",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test1@test.com\",\n    \"password\":\"testpass\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth 404 User not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Response is ERROR\", () => {\r",
+									"    pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Body to have message\", () => {\r",
+									"    pm.expect(response).to.have.ownProperty(\"message\")\r",
+									"    pm.expect(response.message).to.equal(\"User not found\")\r",
+									"})   "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "incorrect",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "incorrect@fake.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order - Correct Flow",
+			"item": [
+				{
+					"name": "Insert Into Orders",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"",
+									"pm.test(\"Body to have success\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"success\")",
+									"    pm.expect(response.success).to.equal(true) ",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Order added\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\": \"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve From Orders",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"testOrdersList\", [\r",
+									"{\r",
+									"    \"size\":\"small\",\r",
+									"    \"base\":\"white rice\",\r",
+									"    \"protein\": \"tuna\",\r",
+									"    \"option1\":false,\r",
+									"    \"option2\":false,\r",
+									"    \"option3\":false,\r",
+									"    \"option4\":false,\r",
+									"    \"option5\":false,\r",
+									"    \"option6\":false,\r",
+									"    \"option7\":false,\r",
+									"    \"option8\":false,\r",
+									"    \"option9\":false,\r",
+									"    \"option10\":false,\r",
+									"    \"option11\":false,\r",
+									"    \"option12\":false\r",
+									" }\r",
+									"    ]\r",
+									")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"orders\")",
+									"    pm.expect(response.orders).to.equal(\"wtf\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order - Incorrect Flow",
+			"item": [
+				{
+					"name": "Order 401 Auth token missing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var jar = pm.cookies.jar();\r",
+									"jar.clear(pm.environment.get(\"base_url\"), (error) => console.log(error));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(401)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Auth token is not supplied\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\": \"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 401 Auth token invalid",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const jar = pm.cookies.jar();\r",
+									"jar.set(pm.environment.get(\"base_url\"), \"access_token\", \"invalid_token\", (error) => console.log(error))"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(401)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Auth token is not supplied\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\": \"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Missing parameters",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Missing required information\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid base",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"pasta\",\n    \"protein\": \"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid size",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"grande\",\n    \"base\":\"white rice\",\n    \"protein\": \"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid protein",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\": \"beef\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"probably\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"probably\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"probably\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option4",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"probably\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option5",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"probably\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option6",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"probably\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option7",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"probably\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option8",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"probably\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option9",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"probably\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option10",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"probably\",\n    \"option11\":\"false\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option11",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"probably\",\n    \"option12\":\"false\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order 400 Invalid option12",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json()",
+									"",
+									"pm.test(\"Response is OK\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Body to have message\", () => {",
+									"    pm.expect(response).to.have.ownProperty(\"message\")",
+									"    pm.expect(response.message).to.equal(\"Invalid parameter(s)\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\":\"small\",\n    \"base\":\"white rice\",\n    \"protein\":\"tuna\",\n    \"option1\":\"false\",\n    \"option2\":\"false\",\n    \"option3\":\"false\",\n    \"option4\":\"false\",\n    \"option5\":\"false\",\n    \"option6\":\"false\",\n    \"option7\":\"false\",\n    \"option8\":\"false\",\n    \"option9\":\"false\",\n    \"option10\":\"false\",\n    \"option11\":\"false\",\n    \"option12\":\"probably\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "testOrdersList",
+			"value": ""
+		},
+		{
+			"key": "jwt",
+			"value": ""
+		}
+	]
+}
